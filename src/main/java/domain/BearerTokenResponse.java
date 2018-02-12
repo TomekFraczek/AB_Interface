@@ -1,4 +1,4 @@
-package com.intuit.developer.sampleapp.oauth2.domain;
+package domain;
 
 import java.util.HashMap;
 import java.util.Map;

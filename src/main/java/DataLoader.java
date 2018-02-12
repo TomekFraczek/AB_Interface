@@ -1,5 +1,3 @@
-package com.intuit.developer.sampleapp.oauth2;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -14,8 +12,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import com.intuit.developer.sampleapp.oauth2.domain.OAuth2Configuration;
-import com.intuit.developer.sampleapp.oauth2.helper.HttpHelper;
+import domain.OAuth2Configuration;
+import helper.HttpHelper;
 
 /**
  * @author dderose
