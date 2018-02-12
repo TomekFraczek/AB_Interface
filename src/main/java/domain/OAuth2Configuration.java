@@ -1,4 +1,4 @@
-package com.intuit.developer.sampleapp.oauth2.domain;
+package domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.intuit.developer.sampleapp.oauth2.service;
+package service;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -21,8 +21,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.intuit.developer.sampleapp.oauth2.domain.OAuth2Configuration;
-import com.intuit.developer.sampleapp.oauth2.helper.HttpHelper;
+import domain.OAuth2Configuration;
+import helper.HttpHelper;
 
 /**
  * @author dderose

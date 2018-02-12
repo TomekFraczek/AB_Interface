@@ -1,4 +1,4 @@
-package com.intuit.developer.sampleapp.oauth2.controller;
+package controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.intuit.developer.sampleapp.oauth2.domain.BearerTokenResponse;
-import com.intuit.developer.sampleapp.oauth2.domain.OAuth2Configuration;
-import com.intuit.developer.sampleapp.oauth2.helper.HttpHelper;
-import com.intuit.developer.sampleapp.oauth2.service.RefreshTokenService;
+import domain.BearerTokenResponse;
+import domain.OAuth2Configuration;
+import helper.HttpHelper;
+import service.RefreshTokenService;
 
 /**
  * @author dderose

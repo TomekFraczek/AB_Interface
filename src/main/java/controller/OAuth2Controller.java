@@ -1,4 +1,4 @@
-package com.intuit.developer.sampleapp.oauth2.controller;
+package controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.intuit.developer.sampleapp.oauth2.domain.OAuth2Configuration;
-import com.intuit.developer.sampleapp.oauth2.helper.HttpHelper;
-import com.intuit.developer.sampleapp.oauth2.service.ValidationService;
+import domain.OAuth2Configuration;
+import helper.HttpHelper;
+import service.ValidationService;
 
 /**
  * @author dderose
