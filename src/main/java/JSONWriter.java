@@ -1,4 +1,5 @@
-import com.intuit.developer.sampleapp.oauth2.controller.QBOController;
+import controller.QBOController;
+
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
