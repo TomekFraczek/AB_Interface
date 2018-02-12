@@ -1,4 +1,4 @@
-package com.intuit.developer.sampleapp.oauth2.helper;
+package helper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.intuit.developer.sampleapp.oauth2.domain.OAuth2Configuration;
+import domain.OAuth2Configuration;
 
 /**
  * @author dderose

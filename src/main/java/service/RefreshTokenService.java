@@ -1,4 +1,4 @@
-package com.intuit.developer.sampleapp.oauth2.service;
+package service;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.intuit.developer.sampleapp.oauth2.domain.BearerTokenResponse;
-import com.intuit.developer.sampleapp.oauth2.domain.OAuth2Configuration;
-import com.intuit.developer.sampleapp.oauth2.helper.HttpHelper;
+import domain.BearerTokenResponse;
+import domain.OAuth2Configuration;
+import helper.HttpHelper;
 
 /**
  * @author dderose
