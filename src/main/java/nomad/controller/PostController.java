@@ -1,7 +1,5 @@
 package nomad.controller;
 
-import nomad.domain.BearerTokenResponse;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;

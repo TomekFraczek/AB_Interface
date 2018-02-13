@@ -1,6 +1,5 @@
 package nomad.controller;
 
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpSession;

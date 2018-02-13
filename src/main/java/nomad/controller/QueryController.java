@@ -2,14 +2,11 @@ package nomad.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import nomad.JSONWriter;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
