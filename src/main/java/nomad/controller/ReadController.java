@@ -17,7 +17,7 @@ public class ReadController extends GetController {
     @RequestMapping("/readTest")
     public String doTestRead(HttpSession session) {
         logger.debug("Performing test read of invoice with id=16");
-        return doRead(session, "Invoice",16).toString();
+        return doRead(session, "invoice",16).toString();
     }
 
     /** Get a single object with the given id from the given table */
@@ -26,7 +26,8 @@ public class ReadController extends GetController {
 
         String realmId = getRealmID(session);
         String urlBegin = oAuth2Configuration.getAccountingAPIHost();
-        String endpoint =  String.format("%s/v3/company/%s/%s/%s?minorversion=4", urlBegin, realmId, tableName, id);
+        String table = tableName.toLowerCase();     //Enforce all lowercase
+        String endpoint =  String.format("%s/v3/company/%s/%s/%s?minorversion=4", urlBegin, realmId, table, id);
 
         // Leaving this out of return statement for readability and convenience
         JSONObject result = doGetRequest(session, endpoint);

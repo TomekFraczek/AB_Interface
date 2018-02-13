@@ -45,6 +45,8 @@ public class QueryController  extends GetController {
         // All query endpoints end with this version specification
         String queryEnd = "&minorversion=4";
 
+        String table = tableName.toLowerCase();  //Enforce all lowercase
+
         // Encode the condition into a valid url segment
         String urlCondition;
         try {
@@ -56,7 +58,7 @@ public class QueryController  extends GetController {
         }
 
         // Assemble the query section of the endpoint
-        String query = "query?query=select%20%2a%20from%20" + tableName + urlCondition + queryEnd;
+        String query = "query?query=select%20%2a%20from%20" + table + urlCondition + queryEnd;
 
         // Put together and return the endpoint from the above data
         return String.format("%s/v3/company/%s/%s", oAuth2Configuration.getAccountingAPIHost(), realmId, query);

@@ -26,7 +26,8 @@ public class CreateController extends PostController {
 
         String realmId = getRealmID(session);
         String urlBegin = oAuth2Configuration.getAccountingAPIHost();
-        String endpoint =  String.format("%s/v3/company/%s/%s?minorversion=4", urlBegin, realmId, tableName);
+        String table = tableName.toLowerCase();  //Enforce all lowercase
+        String endpoint =  String.format("%s/v3/company/%s/%s?minorversion=4", urlBegin, realmId, table);
 
         return doPostRequest(session, endpoint, newData);
     }
