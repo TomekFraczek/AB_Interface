@@ -1,4 +1,9 @@
+# File endings to ignore
 *.iml
 
+# Directories to ignore
 out/
 .idea/
+
+# Specific files to ignore
+test.json
