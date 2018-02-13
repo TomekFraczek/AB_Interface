@@ -26,11 +26,11 @@ public class QueryController  extends GetController {
     @ResponseBody
     @RequestMapping("/getCompanyInfo")
     public String doTestQuery(HttpSession session) {
-        return this.doQuery(session, "Invoice", "");
+        return this.doQuery(session, "Invoice", "").toString();
     }
 
     /** Main method to preform and execute Queries */
-    public String doQuery(HttpSession session, String tableName, String condition) {
+    public JSONObject doQuery(HttpSession session, String tableName, String condition) {
 
         String realmId = getRealmID(session);
 
@@ -40,7 +40,7 @@ public class QueryController  extends GetController {
         // Get the result of the query request
         JSONObject result = doGetRequest(session, queryEndpoint);
 
-        return result.toString();
+        return result;
     }
 
     private String getEndpoint(String realmId, String tableName, String condition){
