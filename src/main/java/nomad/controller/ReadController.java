@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 public class ReadController extends GetController {
 
     @ResponseBody
-    @RequestMapping("/queryTest")
+    @RequestMapping("/readTest")
     public String doTestRead(HttpSession session) {
         return doRead(session, "Invoice",16).toString();
     }
