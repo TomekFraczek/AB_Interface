@@ -17,6 +17,8 @@ public class GetController extends RequestController {
     /** Performs a GET request to execute a query, and returns the result as a JSONObject */
     protected JSONObject doGetRequest(HttpSession session, String getEndpoint) {
 
+        logger.debug("Performing GET request with endpoint: " + getEndpoint);
+
         // Turn the endpoint into a valid HTTP GET request
         HttpGet getRequest = new HttpGet(getEndpoint);
 

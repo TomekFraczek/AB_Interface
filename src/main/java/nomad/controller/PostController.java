@@ -17,6 +17,8 @@ public class PostController  extends RequestController {
     /** Performs a GET request to execute a query, and returns the result as a JSONObject */
     protected JSONObject doPostRequest(HttpSession session, String postEndpoint, JSONObject postData) {
 
+        logger.debug("Performing POST request with endpoint:" + postEndpoint);
+
         // Turn the endpoint into a valid HTTP GET request
         HttpPost postRequest = new HttpPost(postEndpoint);
 
