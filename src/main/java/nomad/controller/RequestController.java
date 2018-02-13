@@ -1,5 +1,6 @@
 package nomad.controller;
 
+import com.google.gson.annotations.JsonAdapter;
 import nomad.domain.BearerTokenResponse;
 import nomad.domain.OAuth2Configuration;
 import nomad.helper.HttpHelper;
@@ -54,8 +55,11 @@ public class RequestController {
 
         } catch (Exception ex) {
             // Catch any unexpected exceptions and pass them up to the log and for display
-            logger.error("Exception while getting company info ", ex);
-            return new JSONObject().put("response", "Unexpected failure. See console");
+            logger.error("Unexpected Exception while performing request", ex);
+            JSONObject errData = new JSONObject();
+            errData.put("response", "Unexpected failure. See console");
+            errData.put("error", ex.toString());
+            return errData;
         }
     }
 
@@ -76,13 +80,13 @@ public class RequestController {
             logger.debug("raw result for 401 companyInfo= " + result);
 
             //refresh tokens
-            logger.info("received 401 during companyinfo call, refreshing tokens now");
+            logger.info("received 401 during request, refreshing tokens now");
             BearerTokenResponse bearerTokenResponse = refreshTokenService.refresh(session);
             session.setAttribute("access_token", bearerTokenResponse.getAccessToken());
             session.setAttribute("refresh_token", bearerTokenResponse.getRefreshToken());
 
             //call company info again using new tokens
-            logger.info("calling companyinfo using new tokens");
+            logger.info("Performing request with new tokens");
             request.setHeader("Authorization","Bearer " + bearerTokenResponse.getAccessToken());
             response = CLIENT.execute(request);
         }
@@ -97,8 +101,10 @@ public class RequestController {
 
         // Pass up a serious error (200 type) so it can be displayed
         if (response.getStatusLine().getStatusCode() != 200){
-            logger.info("failed getting companyInfo");
-            result = new JSONObject().put("response", "Failed 200 type");
+            int code = response.getStatusLine().getStatusCode();
+            String reason = response.getStatusLine().getReasonPhrase();
+            logger.info("Failed completing request. Status code " + code + " " + reason);
+            result = new JSONObject().put("response", "Failed (" + code + " " + reason + ")");
         } else {
             // Extract (and log) the query result from the HTTP response
             StringBuffer resultStr = httpHelper.getResult(response);
