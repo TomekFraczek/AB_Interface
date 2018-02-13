@@ -57,11 +57,15 @@ public class JSONWriter {
 
     // Write the given string to a file, ensuring that it is pretty-printed
     public void write(String filename, String jsonString) {
-
-        // Convert the jsonString to a json object so it can get pretty printed
+        // Convert the jsonString to a json object so it can get pretty printed, then pass it along
         JSONObject obj = new JSONObject(jsonString);
-
-        // The basic write method can handle it from here on out
         this.write(filename, obj);
+    }
+
+    // Write the given StringBuffer to a file, ensuring that it is pretty-printed
+    public void write(String filename, StringBuffer jsonBuffer) {
+        // Convert the StringBuffer to a String, then pass it along
+        String jsonString = new String(jsonBuffer);
+        this.write(filename, jsonString);
     }
 }
