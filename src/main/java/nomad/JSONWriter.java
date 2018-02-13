@@ -27,7 +27,18 @@ public class JSONWriter {
     private static final Logger logger = Logger.getLogger(QBOController.class);
 
     // The directory for the fileWriter to write all files to
-    private String directoryPath = env.getProperty("datapath");
+    private String directoryPath;
+
+    public JSONWriter() {
+        String path;
+        try {
+            path = env.getProperty("DataPath");
+        } catch (NullPointerException e) {
+            // TODO: The property get always fails for some reason, so this is a hack to get it to work for now
+            path = "/home/tomek/Work/Nomad/QB_Interface/out/Data/";
+        }
+        this.directoryPath = path;
+    }
 
     // Convert a JSON object to a pretty-printed string and write it out to the file
     public void write(String filename, JSONObject obj) {
