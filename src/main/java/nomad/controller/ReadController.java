@@ -4,9 +4,11 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
+@RestController
 public class ReadController extends GetController {
 
     private static final Logger logger = Logger.getLogger(ReadController.class);

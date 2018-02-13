@@ -4,10 +4,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
+@Controller
 public class PostController  extends RequestController {
 
     private static final Logger logger = Logger.getLogger(PostController.class);
