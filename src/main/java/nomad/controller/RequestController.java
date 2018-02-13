@@ -27,12 +27,12 @@ public class RequestController {
     @Autowired
     public RefreshTokenService refreshTokenService;
 
-    protected static final HttpClient CLIENT = HttpClientBuilder.create().build();
+    private static final HttpClient CLIENT = HttpClientBuilder.create().build();
 
     private static final Logger logger = Logger.getLogger(RequestController.class);
 
     /** Extract the realmID from the current HttpSession */
-    protected String getRealmID(HttpSession session) {
+    String getRealmID(HttpSession session) {
 
         //Ideally you would fetch the realmId and the accessToken from the data store based on the user account here.
         String realmId = (String)session.getAttribute("realmId");
@@ -44,7 +44,7 @@ public class RequestController {
     }
 
     /** Perform the entire HttpRequest, returning a JSONObject of the response */
-    protected JSONObject doRequest(HttpSession session, HttpRequestBase request) {
+    JSONObject doRequest(HttpSession session, HttpRequestBase request) {
         try {
             // Perform the request and return the resultant response as a JSON object
             HttpResponse response = getResponse(session, request);
@@ -58,7 +58,7 @@ public class RequestController {
     }
 
     /** Execute the request, trying again with refreshed tokens if they expired. Return the received HttpResponse */
-    protected HttpResponse getResponse(HttpSession session, HttpRequestBase request) throws Exception {
+    private HttpResponse getResponse(HttpSession session, HttpRequestBase request) throws Exception {
 
         HttpResponse response = CLIENT.execute(request);
 
@@ -89,7 +89,7 @@ public class RequestController {
     }
 
     /** Extract the response body as a JSONObject, catching a 200 type response */
-    protected JSONObject extractResult(HttpResponse response) throws IOException {
+    private JSONObject extractResult(HttpResponse response) throws IOException {
 
         JSONObject result;
 
