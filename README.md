@@ -33,7 +33,7 @@ Once the sample app code is on your computer, you can do the following steps to 
 
 1. cd to the project directory</li>
 2. Run the command:`./gradlew bootRun` (Mac OS) or `gradlew.bat bootRun` (Windows)</li>
-3. Wait until the terminal output displays the "Started Application in xxx seconds" message.
+3. Wait until the terminal output displays the "Started nomad.nomad.Application in xxx seconds" message.
 4. Your app should be up now in http://localhost:8080/ 
 5. The oauth2 callback endpoint in the sample app is http://localhost:8080/oauth2redirect
 6. To run the code on a different port, uncomment and update server.port property in application.properties

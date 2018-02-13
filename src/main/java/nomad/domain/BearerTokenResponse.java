@@ -1,4 +1,4 @@
-package domain;
+package nomad.domain;
 
 import java.util.HashMap;
 import java.util.Map;
