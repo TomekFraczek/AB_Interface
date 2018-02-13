@@ -107,9 +107,9 @@ public class QueryController {
 
             // Extract (and log) the query result from the HTTP response
             StringBuffer result = httpHelper.getResult(response);
-            logger.debug("raw result for companyInfo= " + result);
-
-            return new JSONObject(result);
+            logger.debug("raw result for query= " + result);
+            // Apparently trying to build a JSONObject directly from a StringBuffer results in an empty object
+            return new JSONObject(new String(result));
 
         // Catch any unexpected exceptions and pass them up to the log and for display
         } catch (Exception ex) {
