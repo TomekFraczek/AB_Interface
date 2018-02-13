@@ -21,7 +21,7 @@ public class QueryController  extends GetController {
     private static final Logger logger = Logger.getLogger(QueryController.class);
 
     @ResponseBody
-    @RequestMapping("/getCompanyInfo")
+    @RequestMapping("/queryTest")
     public String doTestQuery(HttpSession session) {
         return this.doQuery(session, "Invoice", "").toString();
     }

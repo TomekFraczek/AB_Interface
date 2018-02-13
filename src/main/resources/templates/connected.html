@@ -9,12 +9,25 @@
       window.opener.location.href = '/connected'
       window.close()
     }
-    function apiCall() {
+    function readTest() {
+        $("#result").html('Loading...')
+        $.get("/readTest", function(data) {
+            $("#result").html(data)
+        })
+    }
+    function queryTest() {
       $("#result").html('Loading...')
-      $.get("/getCompanyInfo", function(data) {
+      $.get("/queryTest", function(data) {
         $("#result").html(data)
       })
     }
+    function createTest() {
+        $("#result").html('Loading...')
+        $.get("/createTest", function(data) {
+            $("#result").html(data)
+        })
+    }
+
   </script>
 </head>
 <body>
@@ -26,7 +39,9 @@
   </div>
   
   <div>
-    <button onclick="apiCall()">Get All Invoices</button>
+    <button onclick="queryTest()">Get All Invoices</button>
+    <button onclick="readTest()">Get Invoice 16</button>
+    <button onclick="createTest()">Create Base Invoice</button>
     <br /><br />
     <div><code id="result"></code></div>
     </div>
