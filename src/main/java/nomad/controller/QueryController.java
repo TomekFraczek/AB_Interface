@@ -20,6 +20,9 @@ import nomad.helper.HttpHelper;
 import nomad.service.RefreshTokenService;
 import nomad.JSONWriter;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * @author dderose
  *
@@ -41,15 +44,21 @@ public class QueryController {
 
     @ResponseBody
     @RequestMapping("/getCompanyInfo")
-    public String doQuery(HttpSession session) {
-        
+    public String doTestQuery(HttpSession session) {
+        return this.doQuery(session, "Invoice", "");
+    }
+
+    /** Main method to preform and execute Queries */
+    public String doQuery(HttpSession session, String tableName, String condition) {
+
         //Ideally you would fetch the realmId and the accessToken from the data store based on the user account here.
         String realmId = (String)session.getAttribute("realmId");
         if (StringUtils.isEmpty(realmId)) {
             return new JSONObject().put("response","No realm ID.  QBO calls only work if the accounting scope was passed!").toString();
         }
 
-        String queryEndpoint = String.format("%s/v3/company/%s/%s", oAuth2Configuration.getAccountingAPIHost(), realmId, "query?query=select%20%2a%20from%20Invoice&minorversion=4");
+        // Prepare the UR:L for the get request
+        String queryEndpoint = getEndpoint(session, realmId, tableName, condition);
 
         // Get the result of the query request
         JSONObject result = doGetRequest(session, queryEndpoint);
@@ -60,6 +69,27 @@ public class QueryController {
         writer.datedWrite(filename, result);
 
         return result.toString();
+    }
+
+    private String getEndpoint(HttpSession session, String realmId, String tableName, String condition){
+        // All query endpoints end with this version specification
+        String queryEnd = "&minorversion=4";
+
+        // Encode the condition into a valid url segment
+        String urlCondition;
+        try {
+            urlCondition = URLEncoder.encode(condition, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // This should never happen, since the encoding is hardcoded in
+            System.out.println("UnsupportedEncodingException in QueryController. Executing query w/o condition");
+            urlCondition = "";
+        }
+
+        // Assemble the query section of the endpoint
+        String query = "query?query=select%20%2a%20from%20" + tableName + urlCondition + queryEnd;
+
+        // Put together and return the endpoint from the above data
+        return String.format("%s/v3/company/%s/%s", oAuth2Configuration.getAccountingAPIHost(), realmId, query);
     }
 
     /** Performs a GET request to execute a query, and returns the result as a JSONObject */
