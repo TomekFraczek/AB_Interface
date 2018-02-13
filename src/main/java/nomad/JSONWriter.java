@@ -1,7 +1,5 @@
 package nomad;
 
-import nomad.controller.QBOController;
-
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class JSONWriter {
     Environment env;
 
     // Get access to the console logger
-    private static final Logger logger = Logger.getLogger(QBOController.class);
+    private static final Logger logger = Logger.getLogger(JSONWriter.class);
 
     // The directory for the fileWriter to write all files to
     private String directoryPath;
