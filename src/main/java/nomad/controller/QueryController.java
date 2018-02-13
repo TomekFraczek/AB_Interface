@@ -32,11 +32,7 @@ public class QueryController  extends GetController {
     /** Main method to preform and execute Queries */
     public String doQuery(HttpSession session, String tableName, String condition) {
 
-        //Ideally you would fetch the realmId and the accessToken from the data store based on the user account here.
-        String realmId = (String)session.getAttribute("realmId");
-        if (StringUtils.isEmpty(realmId)) {
-            return new JSONObject().put("response","No realm ID.  QBO calls only work if the accounting scope was passed!").toString();
-        }
+        String realmId = getRealmID(session);
 
         // Prepare the URL for the get request
         String queryEndpoint = getEndpoint(realmId, tableName, condition);
