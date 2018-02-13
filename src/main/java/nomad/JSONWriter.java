@@ -41,7 +41,7 @@ public class JSONWriter {
         this.directoryPath = path;
     }
 
-    // Convert a JSON object to a pretty-printed string and write it out to the file
+    // main write: Convert a JSON object to a pretty-printed string and write it out to the file
     public void write(String filename, JSONObject obj) {
 
         // Combine the given file name with the directory
@@ -56,23 +56,29 @@ public class JSONWriter {
         }
     }
 
-    // Write the given String to a file, ensuring that it is pretty-printed
+    // Convert the String to a JSONObject to ensure it will be pretty-printed by the main write
     public void write(String filename, String jsonString) {
         JSONObject obj = new JSONObject(jsonString);
         this.write(filename, obj);
     }
 
-    // Write the given StringBuffer to a file, ensuring that it is pretty-printed
+    // Convert the StringBuffer to a JSONObject to ensure it will be pretty-printed by the main write
     public void write(String filename, StringBuffer jsonBuffer) {
         String jsonString = new String(jsonBuffer);
         this.write(filename, jsonString);
     }
 
-    // Add the datetime to the filename before passing everything along for writing
-    public void datedWrite(String filename, StringBuffer jsonBuffer) {
+    // main datedWrite: Add the datetime to the filename before passing everything along for writing
+    public void datedWrite(String filename, JSONObject json) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm");
         Date date = new Date();
         String datedFilename = filename + dateFormat.format(date) + ".json";
-        this.write(datedFilename, jsonBuffer);
+        this.write(datedFilename, json);
+    }
+
+    // Convert the StringBuffer into a jsonObject before passing it on to the main datedWrite
+    public void datedWrite(String filename, StringBuffer jsonBuffer) {
+        JSONObject json = new JSONObject(jsonBuffer);
+        this.datedWrite(filename, json);
     }
 }
