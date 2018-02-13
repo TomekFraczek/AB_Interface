@@ -40,11 +40,6 @@ public class QueryController  extends GetController {
         // Get the result of the query request
         JSONObject result = doGetRequest(session, queryEndpoint);
 
-        // We've hijacked the above request to get the shipments data. Now we write it out to a file for later work
-        String filename = "Shipments";
-        JSONWriter writer = new JSONWriter();
-        writer.datedWrite(filename, result);
-
         return result.toString();
     }
 
