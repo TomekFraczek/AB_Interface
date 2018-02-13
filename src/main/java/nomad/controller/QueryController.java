@@ -2,10 +2,6 @@ package nomad.controller;
 
 import javax.servlet.http.HttpSession;
 
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -29,7 +25,7 @@ import nomad.JSONWriter;
  *
  */
 @RestController
-public class QBOController {
+public class QueryController {
     
     @Autowired
     public OAuth2Configuration oAuth2Configuration;
@@ -41,7 +37,7 @@ public class QBOController {
     public RefreshTokenService refreshTokenService;
     
     private static final HttpClient CLIENT = HttpClientBuilder.create().build();
-    private static final Logger logger = Logger.getLogger(QBOController.class);
+    private static final Logger logger = Logger.getLogger(QueryController.class);
     
     /**
      * Sample QBO API call using OAuth2 tokens
@@ -59,19 +55,18 @@ public class QBOController {
             return new JSONObject().put("response","No realm ID.  QBO calls only work if the accounting scope was passed!").toString();
         }
 
-        String companyInfoEndpoint = String.format("%s/v3/company/%s/%s", oAuth2Configuration.getAccountingAPIHost(), realmId, "query?query=select%20%2a%20from%20Invoice&minorversion=4");
+        String queryEndpoint = String.format("%s/v3/company/%s/%s", oAuth2Configuration.getAccountingAPIHost(), realmId, "query?query=select%20%2a%20from%20Invoice&minorversion=4");
 
         String failureMsg="Failed";
 
-        HttpGet companyInfoReq = new HttpGet(companyInfoEndpoint);
-
-        companyInfoReq.setHeader("Accept", "application/json");
+        // Create the HTTP GET request to be executed
+        HttpGet queryRequest = new HttpGet(queryEndpoint);
+        queryRequest.setHeader("Accept", "application/json");
         String accessToken = (String)session.getAttribute("access_token");
-        companyInfoReq.setHeader("Authorization","Bearer " + accessToken);
+        queryRequest.setHeader("Authorization","Bearer " + accessToken);
 
         try {
-
-            HttpResponse response = CLIENT.execute(companyInfoReq);
+            HttpResponse response = CLIENT.execute(queryRequest);
 
             logger.info("Response Code : "+ response.getStatusLine().getStatusCode());
             
@@ -92,15 +87,17 @@ public class QBOController {
                 
                 //call company info again using new tokens
                 logger.info("calling companyinfo using new tokens");
-                companyInfoReq.setHeader("Authorization","Bearer " + bearerTokenResponse.getAccessToken());
-                response = CLIENT.execute(companyInfoReq);
+                queryRequest.setHeader("Authorization","Bearer " + bearerTokenResponse.getAccessToken());
+                response = CLIENT.execute(queryRequest);
             }  
             
+            // Pass up a serious error (200 type) so it can be displayed
             if (response.getStatusLine().getStatusCode() != 200){
                 logger.info("failed getting companyInfo");
                 return new JSONObject().put("response",failureMsg).toString();
             }
-   
+
+            // Extract (and log) the query result from the HTTP response
             StringBuffer result = httpHelper.getResult(response);
             logger.debug("raw result for companyInfo= " + result);
 
@@ -111,7 +108,8 @@ public class QBOController {
             writer.datedWrite(filename, result);
 
             return result.toString();
-            
+
+        // Catch any unexpected exceptions and pass them up to the log and for display
         } catch (Exception ex) {
             logger.error("Exception while getting company info ", ex);
             return new JSONObject().put("response",failureMsg).toString();
