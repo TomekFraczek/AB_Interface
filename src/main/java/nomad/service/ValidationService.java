@@ -1,4 +1,4 @@
-package service;
+package nomad.service;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -21,8 +21,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import domain.OAuth2Configuration;
-import helper.HttpHelper;
+import nomad.domain.OAuth2Configuration;
+import nomad.helper.HttpHelper;
 
 /**
  * @author dderose

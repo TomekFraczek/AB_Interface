@@ -1,4 +1,4 @@
-package service;
+package nomad.service;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.BearerTokenResponse;
-import domain.OAuth2Configuration;
-import helper.HttpHelper;
+import nomad.domain.BearerTokenResponse;
+import nomad.domain.OAuth2Configuration;
+import nomad.helper.HttpHelper;
 
 /**
  * @author dderose

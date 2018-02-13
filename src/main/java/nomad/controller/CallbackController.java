@@ -1,4 +1,4 @@
-package controller;
+package nomad.controller;
 
 import java.util.List;
 
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.BearerTokenResponse;
-import domain.OAuth2Configuration;
-import helper.HttpHelper;
-import service.ValidationService;
+import nomad.domain.BearerTokenResponse;
+import nomad.domain.OAuth2Configuration;
+import nomad.helper.HttpHelper;
+import nomad.service.ValidationService;
 
 /**
  * @author dderose

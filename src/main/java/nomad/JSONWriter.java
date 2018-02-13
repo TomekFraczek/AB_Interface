@@ -1,4 +1,6 @@
-import controller.QBOController;
+package nomad;
+
+import nomad.controller.QBOController;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;

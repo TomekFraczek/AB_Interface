@@ -1,4 +1,4 @@
-package controller;
+package nomad.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import domain.OAuth2Configuration;
-import helper.HttpHelper;
-import service.ValidationService;
+import nomad.domain.OAuth2Configuration;
+import nomad.helper.HttpHelper;
+import nomad.service.ValidationService;
 
 /**
  * @author dderose

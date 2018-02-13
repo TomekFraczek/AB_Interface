@@ -1,4 +1,4 @@
-package helper;
+package nomad.helper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import domain.OAuth2Configuration;
+import nomad.domain.OAuth2Configuration;
 
 /**
  * @author dderose

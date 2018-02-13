@@ -1,8 +1,7 @@
-package controller;
+package nomad.controller;
 
 import javax.servlet.http.HttpSession;
 
-import java.io.FileWriter;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import domain.BearerTokenResponse;
-import domain.OAuth2Configuration;
-import helper.HttpHelper;
-import service.RefreshTokenService;
+import nomad.domain.BearerTokenResponse;
+import nomad.domain.OAuth2Configuration;
+import nomad.helper.HttpHelper;
+import nomad.service.RefreshTokenService;
+import nomad.JSONWriter;
 
 /**
  * @author dderose
@@ -108,13 +108,9 @@ public class QBOController {
             // We've hijacked the above request to get the shipments data. Now we write it out to a file for later work
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm");
             Date date = new Date();
-            String filename = "/home/tomek/Work/Nomad/PullShipments/Shipments_" + dateFormat.format(date) + ".json";
+            String filename = "Shipments_" + dateFormat.format(date);
+            JSONWriter writer = new JSONWriter();
 
-            logger.info("Writing query result to file: " + filename);
-            try (FileWriter file = new FileWriter(filename)) {
-                file.write(result.toString());
-                logger.info("Successfully Copied JSON Object to File...");
-            }
 
             return result.toString();
             

@@ -1,3 +1,5 @@
+package nomad;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -12,8 +14,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import domain.OAuth2Configuration;
-import helper.HttpHelper;
+import nomad.domain.OAuth2Configuration;
+import nomad.helper.HttpHelper;
 
 /**
  * @author dderose
