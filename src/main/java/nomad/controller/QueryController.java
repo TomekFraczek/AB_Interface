@@ -23,6 +23,7 @@ public class QueryController  extends GetController {
     @ResponseBody
     @RequestMapping("/queryTest")
     public String doTestQuery(HttpSession session) {
+        logger.debug("Performing test of query (getting all invoices)");
         return this.doQuery(session, "Invoice", "").toString();
     }
 

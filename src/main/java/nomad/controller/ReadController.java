@@ -1,5 +1,6 @@
 package nomad.controller;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -8,9 +9,12 @@ import javax.servlet.http.HttpSession;
 
 public class ReadController extends GetController {
 
+    private static final Logger logger = Logger.getLogger(ReadController.class);
+
     @ResponseBody
     @RequestMapping("/readTest")
     public String doTestRead(HttpSession session) {
+        logger.debug("Performing test read of invoice with id=16");
         return doRead(session, "Invoice",16).toString();
     }
 
