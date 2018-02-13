@@ -38,16 +38,10 @@ public class QueryController {
     
     private static final HttpClient CLIENT = HttpClientBuilder.create().build();
     private static final Logger logger = Logger.getLogger(QueryController.class);
-    
-    /**
-     * Sample QBO API call using OAuth2 tokens
-     * 
-     * @param session
-     * @return
-     */
+
     @ResponseBody
     @RequestMapping("/getCompanyInfo")
-    public String callQBOCompanyInfo(HttpSession session) {
+    public String doQuery(HttpSession session) {
         
         //Ideally you would fetch the realmId and the accessToken from the data store based on the user account here.
         String realmId = (String)session.getAttribute("realmId");
@@ -58,7 +52,7 @@ public class QueryController {
         String queryEndpoint = String.format("%s/v3/company/%s/%s", oAuth2Configuration.getAccountingAPIHost(), realmId, "query?query=select%20%2a%20from%20Invoice&minorversion=4");
 
         // Get the result of the query request
-        JSONObject result = doQueryGet(session, queryEndpoint);
+        JSONObject result = doGetRequest(session, queryEndpoint);
 
         // We've hijacked the above request to get the shipments data. Now we write it out to a file for later work
         String filename = "Shipments";
@@ -69,7 +63,7 @@ public class QueryController {
     }
 
     /** Performs a GET request to execute a query, and returns the result as a JSONObject */
-    private JSONObject doQueryGet(HttpSession session, String queryEndpoint) {
+    private JSONObject doGetRequest(HttpSession session, String queryEndpoint) {
 
         String failureMsg="Failed";
 
