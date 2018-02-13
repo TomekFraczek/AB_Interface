@@ -50,7 +50,7 @@ public class JSONWriter {
         // Perform the write, logging wither success of failure
         try (FileWriter file = new FileWriter(fullFilename)) {
             file.write(obj.toString(2));
-            logger.info("Successfully Copied JSON Object to File...");
+            logger.debug("Successfully Copied JSON Object to File...");
         } catch (IOException e) {
             logger.warn("Object write FAILED!");
         }
@@ -72,7 +72,7 @@ public class JSONWriter {
     public void datedWrite(String filename, JSONObject json) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm");
         Date date = new Date();
-        String datedFilename = filename + dateFormat.format(date) + ".json";
+        String datedFilename = filename + dateFormat.format(date);
         this.write(datedFilename, json);
     }
 
