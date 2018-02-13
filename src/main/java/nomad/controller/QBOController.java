@@ -110,7 +110,7 @@ public class QBOController {
             Date date = new Date();
             String filename = "Shipments_" + dateFormat.format(date);
             JSONWriter writer = new JSONWriter();
-
+            writer.write(filename, result);
 
             return result.toString();
             
