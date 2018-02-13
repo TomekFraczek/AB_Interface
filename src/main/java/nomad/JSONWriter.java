@@ -11,6 +11,9 @@ import org.springframework.core.env.Environment;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @Configuration
@@ -55,17 +58,23 @@ public class JSONWriter {
         }
     }
 
-    // Write the given string to a file, ensuring that it is pretty-printed
+    // Write the given String to a file, ensuring that it is pretty-printed
     public void write(String filename, String jsonString) {
-        // Convert the jsonString to a json object so it can get pretty printed, then pass it along
         JSONObject obj = new JSONObject(jsonString);
         this.write(filename, obj);
     }
 
     // Write the given StringBuffer to a file, ensuring that it is pretty-printed
     public void write(String filename, StringBuffer jsonBuffer) {
-        // Convert the StringBuffer to a String, then pass it along
         String jsonString = new String(jsonBuffer);
         this.write(filename, jsonString);
+    }
+
+    // Add the datetime to the filename before passing everything along for writing
+    public void datedWrite(String filename, StringBuffer jsonBuffer) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm");
+        Date date = new Date();
+        String datedFilename = filename + dateFormat.format(date) + ".json";
+        this.write(datedFilename, jsonBuffer);
     }
 }

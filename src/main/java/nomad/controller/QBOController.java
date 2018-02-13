@@ -106,11 +106,9 @@ public class QBOController {
 
 
             // We've hijacked the above request to get the shipments data. Now we write it out to a file for later work
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm");
-            Date date = new Date();
-            String filename = "Shipments_" + dateFormat.format(date);
+            String filename = "Shipments";
             JSONWriter writer = new JSONWriter();
-            writer.write(filename, result);
+            writer.datedWrite(filename, result);
 
             return result.toString();
             
