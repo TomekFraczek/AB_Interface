@@ -19,13 +19,13 @@ public class GetController extends RequestController {
         String failureMsg="Failed";
 
         // Turn the endpoint into a valid HTTP GET request
-        HttpGet queryRequest = new HttpGet(queryEndpoint);
-        queryRequest.setHeader("Accept", "application/json");
+        HttpGet getRequest = new HttpGet(queryEndpoint);
+        getRequest.setHeader("Accept", "application/json");
         String accessToken = (String)session.getAttribute("access_token");
-        queryRequest.setHeader("Authorization","Bearer " + accessToken);
+        getRequest.setHeader("Authorization","Bearer " + accessToken);
 
         try {
-            HttpResponse response = CLIENT.execute(queryRequest);
+            HttpResponse response = CLIENT.execute(getRequest);
 
             logger.info("Response Code : "+ response.getStatusLine().getStatusCode());
 
@@ -46,8 +46,8 @@ public class GetController extends RequestController {
 
                 //call company info again using new tokens
                 logger.info("calling companyinfo using new tokens");
-                queryRequest.setHeader("Authorization","Bearer " + bearerTokenResponse.getAccessToken());
-                response = CLIENT.execute(queryRequest);
+                getRequest.setHeader("Authorization","Bearer " + bearerTokenResponse.getAccessToken());
+                response = CLIENT.execute(getRequest);
             }
 
             // Pass up a serious error (200 type) so it can be displayed
