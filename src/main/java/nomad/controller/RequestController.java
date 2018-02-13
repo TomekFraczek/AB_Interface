@@ -12,10 +12,12 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@Controller
 public class RequestController {
 
     @Autowired
