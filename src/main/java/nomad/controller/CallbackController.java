@@ -50,12 +50,6 @@ public class CallbackController {
      *  The Authorization code has a short lifetime.
      *  Hence Unless a user action is quick and mandatory, proceed to exchange the Authorization Code for
      *  BearerToken
-     *      
-     * @param auth_code
-     * @param state
-     * @param realmId
-     * @param session
-     * @return
      */
     @RequestMapping("/oauth2redirect")
     public String callBackFromOAuth(@RequestParam("code") String authCode, @RequestParam("state") String state, @RequestParam(value = "realmId", required = false) String realmId, HttpSession session) {   
@@ -132,7 +126,7 @@ public class CallbackController {
         try {
             HttpResponse response = CLIENT.execute(userInfoReq);
 
-            logger.info("Response Code : "+ response.getStatusLine().getStatusCode());
+            logger.debug("Response Code : "+ response.getStatusLine().getStatusCode());
             if (response.getStatusLine().getStatusCode() == 200) {
                 
                 StringBuffer result = httpHelper.getResult(response);
