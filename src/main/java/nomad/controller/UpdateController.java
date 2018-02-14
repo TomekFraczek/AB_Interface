@@ -19,9 +19,9 @@ public class UpdateController extends PostController{
     public String updateTest(HttpSession session){
         logger.debug("Executing a sparse update test");
         JSONObject json = new JSONObject();
-        json.put("Id", "16");
         json.put("PrintStatus", "PRINT STATUS HAS BEEN UPDATED!");
-        return this.doSparseUpdate(session, "invoice", 16, json).toString();
+        json.put("SyncToken", "0");
+        return this.doSparseUpdate(session, "Invoice", 16, json).toString();
     }
 
     /**
