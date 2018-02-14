@@ -34,6 +34,8 @@ public class RequestController {
 
     private static final Logger logger = Logger.getLogger(RequestController.class);
 
+    private static final String failureStr = "Failed";
+
     /** Extract the realmID from the current HttpSession */
     String getRealmID(HttpSession session) {
 
@@ -48,19 +50,27 @@ public class RequestController {
 
     /** Perform the entire HttpRequest, returning a JSONObject of the response */
     JSONObject doRequest(HttpSession session, HttpRequestBase request) {
+        JSONObject result = new JSONObject();
         try {
             // Perform the request and return the resultant response as a JSON object
             HttpResponse response = getResponse(session, request);
-            return extractResult(response);
+            result = extractResult(response);
 
         } catch (Exception ex) {
             // Catch any unexpected exceptions and pass them up to the log and for display
             logger.error("Unexpected Exception while performing request", ex);
-            JSONObject errData = new JSONObject();
-            errData.put("response", "Unexpected failure. See console");
-            errData.put("error", ex.toString());
-            return errData;
+            result.put("response", "Unexpected " + failureStr + ". See console");
+            result.put("error", ex.toString());
         }
+
+        // If the request failed at any point, add the request data to what is returned, for debugging
+        if (result.has("response") && result.get("response").toString().contains(failureStr)) {
+            logger.debug("The following request failed");
+            logger.debug("REQUEST: " + request.toString());
+            logger.debug(request.getAllHeaders());
+        }
+
+        return result;
     }
 
     /** Execute the request, trying again with refreshed tokens if they expired. Return the received HttpResponse */
@@ -104,7 +114,7 @@ public class RequestController {
             int code = response.getStatusLine().getStatusCode();
             String reason = response.getStatusLine().getReasonPhrase();
             logger.info("Failed completing request. Status code " + code + " " + reason);
-            result = new JSONObject().put("response", "Failed (" + code + " " + reason + ")");
+            result = new JSONObject().put("response", failureStr + " (" + code + " " + reason + ")");
         } else {
             // Extract (and log) the query result from the HTTP response
             StringBuffer resultStr = httpHelper.getResult(response);
