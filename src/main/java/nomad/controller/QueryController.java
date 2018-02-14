@@ -50,18 +50,20 @@ public class QueryController  extends GetController {
 
         String table = tableName.toLowerCase();  //Enforce all lowercase
 
-        // Encode the condition into a valid url segment
-        String urlCondition;
+        // If the given condition is not empty, then append a 'where' and the URL encoding of the condition to the URI
+        String fullCondition = "";
         try {
-            urlCondition = URLEncoder.encode(condition, "UTF-8");
+            if (!condition.equals("")) {
+                fullCondition = "%20where%20" + URLEncoder.encode(condition, "UTF-8");
+            }
         } catch (UnsupportedEncodingException e) {
             // This should never happen, since the encoding is hardcoded in
             System.out.println("UnsupportedEncodingException in QueryController. Executing query w/o condition");
-            urlCondition = "";
+            fullCondition = "";
         }
 
         // Assemble the query section of the endpoint
-        String query = "query?query=select%20%2a%20from%20" + table + "%20where%20" + urlCondition + queryEnd;
+        String query = "query?query=select%20%2a%20from%20" + table + fullCondition + queryEnd;
 
         // Put together and return the endpoint from the above data
         return String.format("%s/v3/company/%s/%s", oAuth2Configuration.getAccountingAPIHost(), realmId, query);
