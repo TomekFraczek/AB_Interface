@@ -18,7 +18,7 @@ public class CreateController extends PostController {
     public String doTestCreate(HttpSession session) {
         logger.debug("Performing create test (creating the basic minimal invoice)");
         JSONObject json = new JSONObject( "{\"Line\": [ { \"Amount\": 100.00, \"DetailType\": \"SalesItemLineDetail\", \"SalesItemLineDetail\": { \"ItemRef\": { \"value\": \"1\",\"name\": \"Services\" } } } ], \"CustomerRef\": { \"value\": \"1\" }}");
-        return doCreate(session, "Invoice", json).toString();
+        return doCreate(session, "Invoice", json).toString(4);
     }
 
     /** Create an object containing the newData in the specified table */

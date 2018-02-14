@@ -24,7 +24,7 @@ public class QueryController  extends GetController {
     @RequestMapping("/queryTest")
     public String doTestQuery(HttpSession session) {
         logger.debug("Performing test of query (getting all invoices)");
-        return this.doQuery(session, "Invoice", "").toString();
+        return this.doQuery(session, "Invoice", "").toString(4);
     }
 
     /**

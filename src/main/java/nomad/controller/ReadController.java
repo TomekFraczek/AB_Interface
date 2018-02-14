@@ -17,7 +17,7 @@ public class ReadController extends GetController {
     @RequestMapping("/readTest")
     public String doTestRead(HttpSession session) {
         logger.debug("Performing test read of invoice with id=16");
-        return doRead(session, "invoice",16).toString();
+        return doRead(session, "invoice",16).toString(4);
     }
 
     /** Get a single object with the given id from the given table */

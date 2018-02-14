@@ -21,7 +21,7 @@ public class UpdateController extends PostController{
         JSONObject json = new JSONObject();
         json.put("PrintStatus", "PRINT STATUS HAS BEEN UPDATED!");
         json.put("SyncToken", "0");
-        return this.doSparseUpdate(session, "Invoice", 16, json).toString();
+        return this.doSparseUpdate(session, "Invoice", 16, json).toString(4);
     }
 
     /**
