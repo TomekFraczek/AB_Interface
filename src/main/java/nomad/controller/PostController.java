@@ -24,7 +24,9 @@ public class PostController  extends RequestController {
 
         // Append the data to the request
         try {
-            postRequest.setEntity(new StringEntity(postData.toString()));
+            StringEntity entity = new StringEntity(postData.toString());
+            logger.debug("Entity = " + entity.toString());
+            postRequest.setEntity(entity);
         } catch (UnsupportedEncodingException e) {
             System.out.print("Unsupported Encoding exception!" + e);
         }
