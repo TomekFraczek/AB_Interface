@@ -27,7 +27,10 @@ public class QueryController  extends GetController {
         return this.doQuery(session, "Invoice", "").toString();
     }
 
-    /** Main method to preform and execute Queries */
+    /**
+     *  Main method to preform and execute Queries
+     * @param condition SQL syntax condition (what comes after 'where' in an SQL statement
+     * */
     public JSONObject doQuery(HttpSession session, String tableName, String condition) {
 
         String realmId = getRealmID(session);
@@ -58,7 +61,7 @@ public class QueryController  extends GetController {
         }
 
         // Assemble the query section of the endpoint
-        String query = "query?query=select%20%2a%20from%20" + table + urlCondition + queryEnd;
+        String query = "query?query=select%20%2a%20from%20" + table + "%20where%20" + urlCondition + queryEnd;
 
         // Put together and return the endpoint from the above data
         return String.format("%s/v3/company/%s/%s", oAuth2Configuration.getAccountingAPIHost(), realmId, query);
