@@ -27,23 +27,30 @@
             $("#result").html(data)
         })
     }
+    function updateTest() {
+        $("#result").html('Loading...')
+        $.get("/updateTest", function(data) {
+            $("#result").html(data)
+        })
+    }
 
   </script>
 </head>
 <body>
-  <a href="/">Disconnect</a>
-  <h3>Connected!</h3>
-  <div th:with="firstPer=${session.givenName}">
+    <a href="/">Disconnect</a>
+    <h3>Connected!</h3>
+    <div th:with="firstPer=${session.givenName}">
   		<p>You are now connected to Quickbooks. The buttons below allow you to interact with the nomad</p>
 	  
-  </div>
+    </div>
   
   <div>
-    <button onclick="queryTest()">Get All Invoices</button>
-    <button onclick="readTest()">Get Invoice 16</button>
-    <button onclick="createTest()">Create Base Invoice</button>
-    <br /><br />
-    <div><code id="result"></code></div>
-    </div>
+      <button onclick="queryTest()">Get All Invoices</button>
+      <button onclick="readTest()">Get Invoice 16</button>
+      <button onclick="createTest()">Create Base Invoice</button>
+      <button onclick="updateTest()">Update a PrintStatus</button>
+      <br /><br />
+      <div><code id="result"></code></div>
+      </div>
 </body>
 </html>
