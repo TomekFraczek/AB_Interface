@@ -7,6 +7,7 @@ import nomad.helper.HttpHelper;
 import nomad.service.RefreshTokenService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -67,8 +68,12 @@ public class RequestController {
         if (result.has("response") && result.get("response").toString().contains(failureStr)) {
             logger.debug("The following request failed");
             logger.debug("REQUEST: " + request.toString());
-            logger.debug(request.getAllHeaders());
-            logger.debug(request.getConfig());
+            logger.debug("Headers: [");
+            for (Header header : request.getAllHeaders() ) {
+                logger.debug("  " + header.toString() + ",");
+            }
+            logger.debug("]");
+            //logger.debug("Config : " + request.getConfig().toString());
         }
 
         return result;
