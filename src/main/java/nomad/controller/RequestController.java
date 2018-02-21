@@ -68,6 +68,7 @@ public class RequestController {
             logger.debug("The following request failed");
             logger.debug("REQUEST: " + request.toString());
             logger.debug(request.getAllHeaders());
+            logger.debug(request.getConfig());
         }
 
         return result;
