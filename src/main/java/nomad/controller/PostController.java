@@ -19,7 +19,7 @@ public class PostController  extends RequestController {
 
         logger.debug("Performing POST request with endpoint:" + postEndpoint);
 
-        // Turn the endpoint into a valid HTTP GET request
+        // Turn the endpoint into a valid HTTP POST request
         HttpPost postRequest = new HttpPost(postEndpoint);
 
         // Append the data to the request
