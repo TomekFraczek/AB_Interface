@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -73,7 +74,11 @@ public class RequestController {
                 logger.debug("  " + header.toString() + ",");
             }
             logger.debug("]");
-            //logger.debug("Config : " + request.getConfig().toString());
+            try {
+                logger.debug("Config : " + request.getConfig().toString());
+            } catch (NullPointerException e) {
+                logger.debug("Config is null");
+            }
         }
 
         return result;
@@ -110,7 +115,7 @@ public class RequestController {
         return response;
     }
 
-    /** Extract the response body as a JSONObject, catching a 200 type response */
+    /** Extract the response body as a JSONObject, passing error data if it's not a 200 response */
     private JSONObject extractResult(HttpResponse response) throws IOException {
 
         JSONObject result;
