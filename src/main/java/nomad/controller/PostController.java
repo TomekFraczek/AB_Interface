@@ -14,7 +14,7 @@ public class PostController  extends RequestController {
 
     private static final Logger logger = Logger.getLogger(PostController.class);
 
-    /** Performs a GET request to execute a query, and returns the result as a JSONObject */
+    /** Performs a POST request to execute an operation, and returns the result as a JSONObject */
     protected JSONObject doPostRequest(HttpSession session, String postEndpoint, JSONObject postData) {
 
         logger.debug("Performing POST request with endpoint:" + postEndpoint);
