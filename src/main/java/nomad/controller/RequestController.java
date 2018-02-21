@@ -1,6 +1,5 @@
 package nomad.controller;
 
-import com.google.gson.annotations.JsonAdapter;
 import nomad.domain.BearerTokenResponse;
 import nomad.domain.OAuth2Configuration;
 import nomad.helper.HttpHelper;
@@ -10,7 +9,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -79,6 +77,7 @@ public class RequestController {
             } catch (NullPointerException e) {
                 logger.debug("Config is null");
             }
+            logger.debug("Response body : " + result.getJSONObject("body").toString(2));
         }
 
         return result;
@@ -119,6 +118,9 @@ public class RequestController {
     private JSONObject extractResult(HttpResponse response) throws IOException {
 
         JSONObject result;
+        // Extract the query result from the HTTP response
+        StringBuffer resultBuffer = httpHelper.getResult(response);
+        String resultStr = new String(resultBuffer);
 
         // Pass up a serious error (200 type) so it can be displayed
         if (response.getStatusLine().getStatusCode() != 200){
@@ -126,15 +128,15 @@ public class RequestController {
             String reason = response.getStatusLine().getReasonPhrase();
             logger.info("Failed completing request. Status code " + code + " " + reason);
             result = new JSONObject().put("response", failureStr + " (" + code + " " + reason + ")");
+            result.put("body", new JSONObject(resultStr));
+            //EntityUtils.consume(response.getEntity());
         } else {
-            // Extract (and log) the query result from the HTTP response
-            StringBuffer resultStr = httpHelper.getResult(response);
+            // Log the query result from the HTTP response
             logger.debug("raw result for query= " + resultStr);
             // Apparently trying to build a JSONObject directly from a StringBuffer results in an empty object
-            result = new JSONObject(new String(resultStr));
+            result = new JSONObject(resultStr);
         }
 
         return result;
     }
-
 }
